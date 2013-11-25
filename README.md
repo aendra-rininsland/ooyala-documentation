@@ -29,6 +29,6 @@ Please contribute, it'll make it better for everyone!
 
 -Æ.
 
-[1]: http://aendrew.github.io/ooyala-documentation
-[2]: /module-example
+[1]: /module-example
+[2]: http://aendrew.github.io/ooyala-documentation
 [3]: /simple-player-example
