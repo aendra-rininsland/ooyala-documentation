@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+  @file
+  This is intended to be the simplest possible player one can deploy with Ooyala,
+  commented as much as possible.
+  
+  Note that the entirety of the embedded params are included here, mostly as defaults. 
+  The entire third parameter can be ommitted from HERPADERP.Player.create().
+  
+  @see http://support.ooyala.com/developers/documentation/api/player_v3_api_embedparams.html
+-->
+<html>
+  <head>
+    <!--
+      Player Query String
+      
+      @param player_branding_id This is an Ooyala player ID (Represented as "xxxxxxxxx").
+      @param platform (flash-only|flash|html5-fallback|html5-priority) Player type. "html5-priority" is generally best.
+      @param namespace (string) Rename OO namespace to value of (string).
+      
+      @see http://support.ooyala.com/developers/documentation/api/player_v3_api_qparams.html
+    -->
+    <script src="//player.ooyala.com/v3/xxxxxxxxx?platform=html5-priority&namespace=HERPADERP"></script>
+  </head>
+  <body>
+    <div id="player_container"></div>
+    
+    <script type="text/javascript">
+      /**
+       * Basic example instantiating the player.
+       * 
+       * N.b., the namespace "HERPADERP" was used in the query string above. As
+       * a result, the usual "OO" namespace has been replaced with "HERPADERP".
+       * In other words, leave off the "namespace=HERPADERP" parameter above to
+       * return Ooyala to the "OO" namespace, that is, you'd instantiate below
+       * by instead calling OO.Player.create instead of HERPADERP.Player.create.
+       * 
+       * @param player_selector This is the ID of the element where the player should go.
+       * @param embed_code A video embed code. Note this is *not* the player code above.
+       * @param param_object An object containing the player's parameters. See below.
+       * 
+       * The following parameters are given as an object for OO.Player.create()'s 3rd option:
+       * 
+       * @param height Player height. Include units (px|%).
+       * @param width Player width. Include units (px|%).
+       * @param layout Supply "chromeless" to remove player chrome. Semi-undocumented; see: http://support.ooyala.com/developers/documentation/api/player_v3_api_modparams.html
+       * @param analytics Custom analytic tags. See: http://support.ooyala.com/developers/documentation/api/analytics_custom_tags.html#analytics_tags
+       * @param autoplay Boolean to control autoplaying. Does NOT work on iOS.
+       * @param enableChannels Some weird old flash bullshit. Defaults to "false".
+       * @param google Object to pass parameters or tags between Ooyala and Google IMA v3 ad server.
+       * @param in-stream Pass In-Stream ad server or network tags to Ooyala player. No idea, TBH.
+       * @param initialTime Start video at this time, in seconds (integer).
+       * @param locale A locale designator to override language and closed-caption options.
+       * @param loop Loop a video on continuous play.
+       * @param onCreate Provide a function to be run on player creation. Highly useful, see below!
+       * @param prebuffering Enable/disable prebuffering for HTML5 player (true by default).
+       * @param vast Something to do with VAST ad servers, whatever those are.
+       * @param flashParams For flash player programming bullshit.  Semi-undocumented; see: http://support.ooyala.com/developers/documentation/api/player_v3_api_modparams.html
+       * 
+       * @see http://support.ooyala.com/developers/documentation/api/player_v3_api_embedparams.html 
+       * 
+       */
+      var ooyala_player = HERPADERP.Player.create(
+        'player_container',
+        'embed_code',
+        {
+          height: '100%',
+          width: '100%',
+          analytics: {
+            "tags": null
+          },
+          autoplay: false,
+          enableChannels: false,
+          google: {
+            tagUrl : null
+          },
+          "in-stream": {
+            tagUrl: null
+          },
+          initialTime: 0,
+          locale: 'en_GB',
+          loop: false,
+          onCreate: function(player) {
+            /**
+             * This function is useful for setting up the player as it's loading.
+             * Note MessageBus events are available for subscription at this
+             * point -- in other words, to run a function after the video has
+             * loaded, you'd listen for the OO.EVENTS.PLAYBACK_READY event
+             * using a snippet like the following:
+             */
+            
+            player.mb.subscribe(OO.EVENTS.PLAYBACK_READY, 'MyPlayer', function(eventname){
+              alert('Content loaded');
+            });
+          },
+          prebuffering: true,
+          vast: {
+            tagUrl: null
+          },
+          flashParams: {
+            "It's almost 2014, man" : "WTF are you using Flash for ANYTHING?"
+          }
+        }
+      );
+    </script>
+  </body>
+</html>
