@@ -143,7 +143,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @note Triggers an ad analytics "AD_CLICK" event.
      */
-    onAdsClick: function(event){},
+    onAdsClick: function(event){
+      console.log('Ad clicked! Normally would load in a new window now.');
+    },
     
     /**
      * Handles the ADS_PLAYED event.
@@ -157,7 +159,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @remark Assuming by "context" they mean "argument position". 
      * @todo Please verify the second and third parameters.
      */
-    onAdsPlayed: function(event, ad_duration, item_id){},
+    onAdsPlayed: function(event, ad_duration, item_id){
+      console.log('A set of ads has played.');
+    },
     
     /**
      * Handles the AD_AUTHORIZATION_FETCHED event.
@@ -169,7 +173,10 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param ads IDs of ads affected by authorization.
      */
-    onAdAuthorizationFetched: function(event, ads){},
+    onAdAuthorizationFetched: function(event, ads){
+      console.log("The following ads were authorised:");
+      console.dir(ads);
+    },
     
     /**
      * Handles the AD_CONFIG_READY event.
@@ -181,7 +188,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @remark Seriously, WTF does "depending on context" mean?
      */
-    onAdConfigReady: function(event, loader){},
+    onAdConfigReady: function(event, loader){
+      console.log('Ad config is ready.');
+    },
     
     /**
      * Handles the AUTHORIZATION_FETCHED event.
@@ -191,7 +200,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param id ID of authorization for asset.
      */
-    onAuthorizationFetched: function(event, id){},
+    onAuthorizationFetched: function(event, id){
+      console.log('Authorisation fetched for: ' + id);
+    },
     
     /**
      * Handles the BUFFERED event.
@@ -201,7 +212,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param url The URL of the stream.
      */
-    onBuffered: function(event, url){},
+    onBuffered: function(event, url){
+      console.log('Buffering complete, play resuming at: ' + url);
+    },
     
     /**
      * Handles the BUFFERING event.
@@ -212,7 +225,20 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param url The URL of the stream.
      */
     onBuffering: function(event, url){},
-    onChangeVolume: function(event){},
+    
+    /**
+     * Handles the CHANGE_VOLUME event.
+     * 
+     * "A request to change volume has been made."
+     * 
+     * @param event The name of the event.
+     * @param level The (new?) volume level (Likely as a percentage?)
+     * 
+     * @todo Verify volume is a percentage and it's the requested new value.
+     */
+    onChangeVolume: function(event, level){
+      console.log('Volume changed requested to: ' + level);
+    },
     
     /**
      * Handles the CONTENT_TREE_FETCHED event.
@@ -225,12 +251,15 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @remark I may be wrong about the last parameter. Could somebody please 
      *         verify for me?
+     *         
      * @todo Confirm that the "content" and "ids" parameters are correct.
      * 
      * @note Records a "display".
      * @sa http://support.ooyala.com/developers/documentation/concepts/analytics_plays-and-displays.html
      */
-    onContentTreeFetched: function(event, content){},
+    onContentTreeFetched: function(event, content, ids){
+      console.log('Content tree fetched for asset: ' + content);
+    },
     
     /**
      * Handles the CONTROLS_HIDDEN event.
@@ -239,7 +268,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onControlsHidden: function(event){},
+    onControlsHidden: function(event){
+      console.log('Controls have been hidden.');
+    },
     
     /**
      * Handles the CONTROLS_SHOWN event.
@@ -248,7 +279,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onControlsShown: function(event){},
+    onControlsShown: function(event){
+      console.log('Controls have been shown.');
+    },
     
     /**
      * Handles the DESTROY event.
@@ -267,7 +300,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @note Destroying is done via OO.Player's destroy() method.
      */
-    onDestroy: function(event){console.log('Y U NO LEIK OOYOOYA?!');},
+    onDestroy: function(event){
+      console.log('Y U NO LEIK OOYOOYA?!?!?!!????');
+    },
     
     /**
      * Handles the DOWNLOADING event.
@@ -277,7 +312,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param time The time of the event.
      */
-    onDownloading: function(event, time){},
+    onDownloading: function(event, time){
+      console.log('Content downloaded at: ' + time);
+    },
     
     /**
      * Handles the EMBED_CODE_CHANGED event.
@@ -288,7 +325,11 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param something "ID (embed code) of asset with options," whatever that 
      *        means. #itisamystery
      */
-    onEmbedCodeChanged: function(event, something){},
+    onEmbedCodeChanged: function(event, something){
+      console.log('Embed code has been changed!');
+      console.log('Here\'s a dump of that confusing second param: ');
+      console.dir(something);
+    },
     
     /**
      * Handles the ERROR event.
@@ -298,7 +339,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param error_code The error code.
      */
-    onError: function(event, error_code){},
+    onError: function(event, error_code){
+      console.log('ERMAHGERRRRD! THURRS BERN AHN EHHHROAAAR!');
+    },
     
     /**
      * Handles the FIRST_AD_FETCHED event.
@@ -307,7 +350,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onFirstAdFetched: function(event){},
+    onFirstAdFetched: function(event){
+      console.log('Oh snap! HERE COMES THE FIRST AD!');
+    },
     
     /**
      * Handles the FULLSCREEN_CHANGED event.
@@ -322,7 +367,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      *       it seems the third param may or may not be included. 
      *       When? When not? #itisamystery
      */
-    onFullscreenChanged: function(event, isFullscreen, isPaused){},
+    onFullscreenChanged: function(event, isFullscreen, isPaused){
+      console.log('Fullscreen changed! isFullScreen? ' + isFullscreen + ' isPaused? ' + isPaused);
+    },
     
     /**
      * Handles the METADATA_FETCHED event.
@@ -332,7 +379,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param embedcode ID of asset.
      */
-    onMetadataFetched: function(event, embedcode){},
+    onMetadataFetched: function(event, embedcode){
+      console.log('Metadata fetched for' + embedcode);
+    },
     
     /**
      * Handles the MIDROLL_PLAY_FAILED event.
@@ -342,7 +391,10 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param args The arguments that were passed in.
      */
-    onMidrollPlayFailed: function(event, args){},
+    onMidrollPlayFailed: function(event, args){
+      console.log('Boooo! Midroll play FAAAAAAILED! Here are the args passed in: ');
+      console.dir(args);
+    },
     
     /**
      * Handles the MIDROLL_STREAM_PLAYED event.
@@ -351,7 +403,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onMidrollStreamPlayed: function(event){},
+    onMidrollStreamPlayed: function(event){
+      console.log('You just saw a midroll stream play!');
+    },
     
     /**
      * Handles the PAUSE event.
@@ -362,7 +416,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @note Pausing is done via OO.Player's pause() method.
      */
-    onPause: function(event){},
+    onPause: function(event){
+      console.log('Itsa pause!');
+    },
     
     /**
      * Handles the PAUSED event.
@@ -371,7 +427,10 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onPaused: function(event){},
+    onPaused: function(event){
+      console.log('Itsa paused!');
+      this.pause();
+    },
     
     /**
      * Handles the PAUSE_STREAM event.
@@ -380,7 +439,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onPauseStream: function(event){},
+    onPauseStream: function(event){
+      console.log('The stream issa pause!');
+    },
     
     /**
      * Handles the PLAY event.
@@ -391,7 +452,10 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @note Playing is done via OO.Player's play() method.
      */
-    onPlay: function(event){},
+    onPlay: function(event){
+      console.log('Itsa play!');
+      this.play();
+    },
     
     /**
      * Handles the PLAYBACK_READY event.
@@ -405,7 +469,10 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onPlaybackReady: function(event){},
+    onPlaybackReady: function(event){
+      console.log('Playback ready!');
+      console.log('Now would be a good time to setup events and stuff!');
+    },
     
     /**
      * Handles the PLAYED event.
@@ -415,16 +482,24 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param args The arguments that were passed in.
      */
-    onPlayed: function(event, args){},
+    onPlayed: function(event, args){
+      console.log('To quote Strong Bad: It\'s over!!');
+      console.log('Those args were, btw: ');
+      console.dir(args);
+    },
     
     /**
      * Handles the PLAYER_CREATED event.
      * 
      * @param event The name of the event
      * @param elementId Element ID of player container.
-     * @param params Parameters passed to player on creation.
+     * @param args Parameters passed to player on creation.
      */
-    onPlayerCreated: function(event, elementId, params){},
+    onPlayerCreated: function(event, elementId, args){
+      console.log('New player created at element #' + elementId);
+      console.log('The args passed in were: ');
+      console.dir(args);
+    },
     
     /**
      * Handles the PLAYHEAD_TIME_CHANGED event.
@@ -434,8 +509,13 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param duration The duration.
      * @param buffer The name of the buffer.
      * @param seek The seek range.
+     * 
+     * @remark This event fires continuously. Don't even think about setting up events here.
      */
-    onPlayheadTimeChanged: function(event, time, duration, buffer, seek){},
+    onPlayheadTimeChanged: function(event, time, duration, buffer, seek){
+      console.log('TIME TRAVEL TIMEZ!');
+      console.log('Current time: ' + time + ' Duration: ' + duration + ' Buffer name: ' + buffer + ' Seek range: ' + seek);
+    },
     
     /**
      * Handles the PLAYING event.
@@ -444,7 +524,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onPlaying: function(event){},
+    onPlaying: function(event){
+      console.log('We be playin\'!');
+    },
     
     /**
      * Handles the PLAY_FAILED event.
@@ -453,7 +535,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event
      */
-    onPlayFailed: function(event){},
+    onPlayFailed: function(event){
+      console.log('Play failed. Booooooo... yala!');
+    },
     
     /**
      * Handles the PLAY_MIDROLL_STREAM event.
@@ -463,7 +547,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param time The current time.
      */
-    onPlayMidrollStream: function(event, time){},
+    onPlayMidrollStream: function(event, time){
+      console.log('Playing midroll stream. Time: ' + time);
+    },
     
     /**
      * Handles the PLAY_STREAM event.
@@ -473,7 +559,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onPlayStream: function(event){},
+    onPlayStream: function(event){
+      console.log('Video stream playback requested.');
+    },
     
     /**
      * Handles the PRELOAD_STREAM event.
@@ -483,7 +571,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param url The URL of the stream.
      */
-    onPreloadStream: function(event, url){},
+    onPreloadStream: function(event, url){
+      console.log('A stream has been preloaded from: ' + url);
+    },
     
     /**
      * Handles the SEEK event.
@@ -498,12 +588,14 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      *       
      * @todo Confirm "seconds" is relative from current time, is milliseconds.
      */
-    onSeek: function(event, seconds){},
+    onSeek: function(event, seconds){
+      console.log('A SEEK IS SOUGHT! ' + seconds + '\'s worth!');
+    },
     
     /**
      * Handles the SEEK_STREAM event.
      * 
-     * "An attempt to move the playhead to a poisition in a video stream has 
+     * "An attempt to move the playhead to a position in a video stream has 
      *  occurred."
      * 
      * @param event The name of the event.
@@ -511,7 +603,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @todo Confirm "seconds" is relative from current time, is milliseconds.
      */
-    onSeekStream: function(event, seconds){},
+    onSeekStream: function(event, seconds){
+      console.log('The playhead was moved ' + seconds + ' seconds!');
+    },
     
     /**
      * Handles the SET_EMBED_CODE event.
@@ -523,9 +617,13 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @note Second param can come with "options", based on context.
      * @todo Figure out what that context is, and whether "embedcode" is an
-     * object in the second occurrence (or if optionss are a third param.). 
+     * object in the second occurrence (or if options are a third param.). 
      */
-    onSetEmbedCode: function(event, embedcode){},
+    onSetEmbedCode: function(event, embedcode){
+      console.log('New embed code set using value: ' + embedcode);
+      console.log('In case the second param has options, here it is: ');
+      console.dir(embedcode);
+    },
     
     /**
      * Handles the SINGLE_AD_PLAYED event.
@@ -534,7 +632,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onSingleAdPlayed: function(event){},
+    onSingleAdPlayed: function(event){
+      console.log('One lonely, solitary ad has played.');
+    },
     
     /**
      * Handles the SIZE_CHANGED event.
@@ -549,7 +649,10 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @note I'm assuming the above is the NEW width/height.
      * @todo Confirm the above is the new width/height -- not the original.
      */
-    onSizeChanged: function(event, width, height){},
+    onSizeChanged: function(event, width, height){
+      console.log('HAI THURR! DUN BE ALL CHANGIN UP MAH SIZEN!');
+      console.log('width: ' + width + ' height: ' + height);
+    },
     /**
      * Handles the STREAM_PAUSED event.
      * 
@@ -561,7 +664,11 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @todo Seriously, figure out WTF would cause totally different second params.
      * @remark That said, I think it's "video is mid-play" vs. "video has completed".
      */
-    onStreamPaused: function(event, something){},
+    onStreamPaused: function(event, something){
+      console.log('The stream has been paused.');
+      console.log('Mysterious second parameter is: ');
+      console.dir(something);
+    },
     
     /**
      * Handles the "STREAM_PLAYED event.
@@ -574,7 +681,11 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @todo Seriously, figure out WTF would cause totally different second params.
      * @remark That said, I think it's "video is mid-play" vs. "video has completed".
      */
-    onStreamPlayed: function(event, something){},
+    onStreamPlayed: function(event, something){
+      console.log('Stream played!');
+      console.log('Mysterious second parameter:');
+      console.dir(something);
+    },
     
     /**
      * Handles the "STREAM_PLAYING" event.
@@ -584,7 +695,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param url The URL of the stream.
      */
-    onStreamPlaying: function(event, url){},
+    onStreamPlaying: function(event, url){
+      console.log('The stream is playing from URL: ' + url);
+    },
     
     /**
      * Handles the STREAM_PLAY_FAILED event.
@@ -594,7 +707,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param args The arguments that were passed in.
      */
-    onStreamPlayFailed: function(event, args){},
+    onStreamPlayFailed: function(event, args){
+      console.log('Boooooyala! Stream play FAILED!');
+    },
     
     /**
      * Handles the VOLUME_CHANGED event.
@@ -608,7 +723,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      *          Further, I think it's a percentage, but don't quote me on that.
      * @todo Verify that "level" is a percentage. 
      */
-    onVolumeChanged: function(event, level){},
+    onVolumeChanged: function(event, level){
+      console.log('Volume has been changed to level: ' + level);
+    },
     
     /**
      * Handles the WILL_CHANGE_FULLSCREEN event.
@@ -623,7 +740,12 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      *         already or not. Seriously, the documentation says it is, depending
      *         on context, simply "either true or false." THANKS, OOYALA!
      */
-    onWillChangeFullscreen: function(event, schrodingersCat){},
+    onWillChangeFullscreen: function(event, schrodingersCat){
+      console.log('About to go fullscreen.');
+      console.log('WTF *is* this param?');
+      console.dir(schrodingersCat);
+    },
+    
     /**
      * Handles the WILL_FETCH_ADS event.
      * 
@@ -631,7 +753,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onWillFetchAds: function(event){},
+    onWillFetchAds: function(event){
+      console.log('About to go fetch me some ads!');
+    },
     
     /**
      * Handles the WILL_FETCH_AD_AUTHORIZATION event.
@@ -641,7 +765,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param id ID of requested ad.
      */
-    onWillFetchAdAuthorization: function(event, id){},
+    onWillFetchAdAuthorization: function(event, id){
+      console.log('About to go fetch me some ad auths! Id:' + id);
+    },
     
     /**
      * Handles the WILL_FETCH_AUTHORIZATION event.
@@ -651,7 +777,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param id The ID of authorization request.
      */
-    onWillFetchAuthorization: function(event, id){},
+    onWillFetchAuthorization: function(event, id){
+      console.log('About to go fetch me some authorizations! Id: ' + id);
+    },
     
     /**
      * Handles the WILL_FETCH_CONTENT_TREE event.
@@ -661,7 +789,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param api_request The passed-in API request.
      */
-    onWillFetchContentTree: function(event, api_request){},
+    onWillFetchContentTree: function(event, api_request){
+      console.log('About to go fetch me some content trees! API request: ' + api_request);
+    },
     
     /**
      * Handles the WILL_FETCH_METADATA event.
@@ -671,7 +801,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param api_request The passed-in API request.
      */
-    onWillFetchMetadata: function(event, api_request){},
+    onWillFetchMetadata: function(event, api_request){
+      console.log('About to go fetch me some metadata! API request: ' + api_request);
+    },
     
     /**
      * Handles the WILL_PLAY event.
@@ -679,7 +811,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * "Triggered before a video is played."
      * @param event The name of the event.
      */
-    onWillPlay: function(event){},
+    onWillPlay: function(event){
+      console.log('About to go play me some content!');
+    },
     
     /**
      * Handles the WILL_PLAY_ADS event.
@@ -691,7 +825,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @todo Figure out the contexts for param #2.
      */
-    onWillPlayAds: function(event, something){},
+    onWillPlayAds: function(event, something){
+      console.log('About to go play me some ads!')
+    },
     
     /**
      * Handles the WILL_PLAY_FROM_BEGINNING event.
@@ -702,7 +838,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @note Seriously, I have no idea what this does.
      */
-    onWillPlayFromBeginning: function(event){},
+    onWillPlayFromBeginning: function(event){
+      console.log('About to play from beginning or something!');
+    },
     
     /**
      * Handles the WILL_PLAY_SINGLE_AD event.
@@ -712,7 +850,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onWillPlaySingleAd: function(event){},
+    onWillPlaySingleAd: function(event){
+      console.log('About to play a single, solitary, lonely-ass ad!');
+    },
     
     /**
      * Handles the WILL_PLAY_STREAM event.
@@ -722,7 +862,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * @param event The name of the event.
      * @param url The URL of the stream.
      */
-    onWillPlayStream: function(event, url){},
+    onWillPlayStream: function(event, url){
+      console.log('About to play me some stream! Url: ' + url);
+    },
     
     /**
      * Handles the WILL_RESUME_MAIN_VIDEO event.
@@ -731,7 +873,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @param event The name of the event.
      */
-    onWillResumeMainVideo: function(event){},
+    onWillResumeMainVideo: function(event){
+      console.log('About to resume me some main video!');
+    },
     
     /**
      * Handles the WILL_SHOW_COMPANION_ADS event.
@@ -743,7 +887,9 @@ OO.plugin("ExampleOoyalaModule", function (OO, _, $$, W) {
      * 
      * @todo Figure out the context of param #2.
      */
-    onWillShowCompanionAds: function(event, ads){},
+    onWillShowCompanionAds: function(event, ads){
+      console.log('About to play me some ads!');
+    },
     
     /**
      * WTF is this, anyway? 
